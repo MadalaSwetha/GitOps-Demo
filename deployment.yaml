@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: guestbook-ui
+  namespace: default
   labels:
     app: guestbook
 spec:
@@ -14,8 +15,8 @@ spec:
       labels:
         app: guestbook
     spec:
-    containers:
-      - name: ui
+    containers: # <-- REQUIRED
+      - name: ui # container name
         image: gcr.io/google-samples/gb-frontend:v5
         ports:
           - containerPort: 80
