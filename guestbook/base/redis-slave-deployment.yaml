@@ -3,24 +3,20 @@ kind: Deployment
 metadata:
   name: redis-slave
   labels:
-    app: redis
-    role: slave
+    app: redis-slave
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
-      role: slave
+      app: redis-slave
   template:
     metadata:
       labels:
-        app: redis
-        role: slave
+        app: redis-slave
     spec:
       containers:
-        - name: redis
-          image: redis:6.2
-          args: ["redis-server", "--slaveof", "redis-master", "6379"]
+        - name: redis-slave
+          image: gcr.io/google_samples/gb-redisslave:v2
           ports:
             - containerPort: 6379
           resources:
