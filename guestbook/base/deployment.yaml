@@ -5,7 +5,7 @@ metadata:
   labels:
     app: guestbook
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: guestbook
@@ -19,22 +19,26 @@ spec:
           image: gcr.io/google-samples/gb-frontend:v5
           ports:
             - containerPort: 80
+          env:
+            # Critical: tells frontend to resolve redis-master via Kubernetes DNS
+            - name: GET_HOSTS_FROM
+              value: dns
           resources:
             requests:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "100Mi"
             limits:
-              cpu: "250m"
-              memory: "256Mi"
+              cpu: "200m"
+              memory: "200Mi"
           livenessProbe:
             httpGet:
               path: /
               port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 5
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 5
-            periodSeconds: 5
+            periodSeconds: 10
