@@ -3,23 +3,20 @@ kind: Deployment
 metadata:
   name: redis-master
   labels:
-    app: redis
-    role: master
+    app: redis-master
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
-      role: master
+      app: redis-master
   template:
     metadata:
       labels:
-        app: redis
-        role: master
+        app: redis-master
     spec:
       containers:
-        - name: redis
-          image: redis:6.2
+        - name: redis-master
+          image: redis:6.0
           ports:
             - containerPort: 6379
           resources:
@@ -29,13 +26,3 @@ spec:
             limits:
               cpu: "200m"
               memory: "256Mi"
-          readinessProbe:
-            tcpSocket:
-              port: 6379
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 6379
-            initialDelaySeconds: 10
-            periodSeconds: 10
