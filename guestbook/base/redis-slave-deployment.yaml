@@ -28,7 +28,10 @@ spec:
             - "--repl-timeout"
             - "60"
             - "--client-output-buffer-limit"
-            - "replica 256mb 64mb 60"
+            - "replica"
+            - "256mb"
+            - "64mb"
+            - "60"
           ports:
             - containerPort: 6379
           resources:
@@ -41,10 +44,10 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 6379
-            initialDelaySeconds: 15
-            periodSeconds: 20
+            initialDelaySeconds: 20
+            periodSeconds: 30
           readinessProbe:
             tcpSocket:
               port: 6379
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: 10
+            periodSeconds: 20
